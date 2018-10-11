@@ -15,6 +15,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+// [Firebase]
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'products', component: ProductsComponent },
@@ -44,7 +50,12 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    NgbModule
+    NgbModule,
+
+  //  [Firebase] Connect web app with Firebase
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
   providers: [],
   bootstrap: [AppComponent]
