@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import {Observable} from 'rxjs';
 import {Observer} from 'firebase';
+import {AuthService} from '../service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,13 @@ import {Observer} from 'firebase';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.afAuth.authState.subscribe( dataFrormGoogle => {
-      console.log('[LoginComponent][ngOnInit()] Google data', dataFrormGoogle);
-    });
   }
 
   doGoogleLogin() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.authService.loginWithGmail();
   }
 
 }

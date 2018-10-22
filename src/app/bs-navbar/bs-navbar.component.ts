@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {Observable} from 'rxjs';
+import {AuthService} from '../service/auth.service';
 
 
 @Component({
@@ -11,22 +12,13 @@ import {Observable} from 'rxjs';
 })
 export class BsNavbarComponent implements OnInit {
 
-  user$: Observable<firebase.User>;
-
-  constructor(public afAuth: AngularFireAuth) {
-
+  constructor(public authService: AuthService) {
   }
 
   ngOnInit() {
-    this.user$ = this.afAuth.authState;
-    /*this.afAuth.authState.subscribe( dataFromGoogle => {
-      this.user = dataFromGoogle;
-      let displayName = this.user ? this.user.displayName : '';
-      console.log('[BsNavbarComponent][ngOnit()][GoogleData]', displayName);
-    });*/
   }
 
-  logout(){
-    this.afAuth.auth.signOut();
+  logout() {
+    this.authService.signOut();
   }
 }
