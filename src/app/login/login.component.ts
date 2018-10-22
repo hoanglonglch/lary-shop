@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import {Observable} from 'rxjs';
+import {Observer} from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.afAuth.authState.subscribe( dataFrormGoogle => {
-      console.log('[LoginComponent][GoogleData]', dataFrormGoogle);
+      console.log('[LoginComponent][ngOnInit()] Google data', dataFrormGoogle);
     });
   }
 
   doGoogleLogin() {
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
 }

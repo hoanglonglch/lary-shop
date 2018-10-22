@@ -20,7 +20,7 @@ export class BsNavbarComponent implements OnInit {
     this.afAuth.authState.subscribe( dataFromGoogle => {
       this.user = dataFromGoogle;
       let displayName = this.user ? this.user.displayName : '';
-      console.log('[BsNavbarComponent][ngOnit][GoogleData]', displayName);
+      console.log('[BsNavbarComponent][ngOnit()][GoogleData]', displayName);
     });
   }
 
