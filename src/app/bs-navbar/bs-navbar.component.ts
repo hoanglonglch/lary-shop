@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -10,18 +11,19 @@ import * as firebase from 'firebase';
 })
 export class BsNavbarComponent implements OnInit {
 
-  user: firebase.User;
+  user$: Observable<firebase.User>;
 
   constructor(public afAuth: AngularFireAuth) {
 
   }
 
   ngOnInit() {
-    this.afAuth.authState.subscribe( dataFromGoogle => {
+    this.user$ = this.afAuth.authState;
+    /*this.afAuth.authState.subscribe( dataFromGoogle => {
       this.user = dataFromGoogle;
       let displayName = this.user ? this.user.displayName : '';
       console.log('[BsNavbarComponent][ngOnit()][GoogleData]', displayName);
-    });
+    });*/
   }
 
   logout(){
