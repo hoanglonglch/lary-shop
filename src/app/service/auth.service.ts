@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {Observable} from 'rxjs';
-import {User} from 'firebase';
 import * as firebase from 'firebase/app';
-
-
+import {Router} from '@angular/router';
 
 
 @Injectable({
@@ -14,15 +12,17 @@ export class AuthService {
 
   user$: Observable<firebase.User>;
 
-  constructor (private  afAuth: AngularFireAuth) {
+  constructor (private  afAuth: AngularFireAuth,
+               private router: Router) {
     this.user$ = this.afAuth.authState;
   }
 
-  loginWithGmail(){
+  loginWithGmail() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  signOut(){
+  signOut() {
+    this.router.navigate(['/']);
     this.afAuth.auth.signOut();
   }
 

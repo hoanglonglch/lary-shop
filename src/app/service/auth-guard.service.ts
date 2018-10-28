@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import { map } from 'rxjs/operators';
+import {st} from '@angular/core/src/render3';
 
 
 @Injectable({
@@ -20,8 +21,9 @@ export class AuthGuardService implements CanActivate {
         if (dataFromServer) {
           return true;
         }
-
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'],
+          {queryParams : {returnUrl: state.url}
+        });
       })
     );
   }
