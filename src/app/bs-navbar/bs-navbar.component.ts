@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AngularFireAuth} from 'angularfire2/auth';
-import * as firebase from 'firebase';
-import {Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../service/auth.service';
+import {AppUser} from '../../models/app-user';
 
 
 @Component({
@@ -12,10 +10,16 @@ import {AuthService} from '../service/auth.service';
 })
 export class BsNavbarComponent implements OnInit {
 
+  appUser: AppUser;
   constructor(public authService: AuthService) {
   }
 
   ngOnInit() {
+    this.authService.appUser$
+      .subscribe((appUser: AppUser) => {
+        console.log('[BsNavbarComponent][ngOnInit()]{appUser}', appUser);
+        this.appUser = appUser;
+      });
   }
 
   logout() {
