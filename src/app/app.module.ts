@@ -25,6 +25,7 @@ import {UserService} from './service/user.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {AdminAuthGuardService} from './service/admin-auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 
 
@@ -41,6 +42,11 @@ const appRoutes: Routes = [
   {
     path: 'admin/products',
     component: AdminProductsComponent ,
+    canActivate: [AuthGuardService, AdminAuthGuardService]
+  },
+  {
+    path: 'admin/products/new',
+    component: ProductFormComponent ,
     canActivate: [AuthGuardService, AdminAuthGuardService]
   },
   {
@@ -65,7 +71,8 @@ const appRoutes: Routes = [
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
