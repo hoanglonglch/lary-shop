@@ -24,6 +24,7 @@ import {AuthGuardService} from './service/auth-guard.service';
 import {UserService} from './service/user.service';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {AdminAuthGuardService} from './service/admin-auth-guard.service';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -47,6 +48,8 @@ const appRoutes: Routes = [
     component: AdminOrdersComponent,
     canActivate: [AuthGuardService, AdminAuthGuardService]
   },
+
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
@@ -61,7 +64,8 @@ const appRoutes: Routes = [
     MyOrdersComponent,
     AdminProductsComponent,
     AdminOrdersComponent,
-    LoginComponent
+    LoginComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
