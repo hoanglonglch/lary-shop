@@ -26,6 +26,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {AdminAuthGuardService} from './service/admin-auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import {CategoryService} from './service/category.service';
 
 
 
@@ -87,7 +88,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     AuthService,
-    UserService
+    UserService,
+    CategoryService
   ],
   bootstrap: [AppComponent]
 })

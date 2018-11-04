@@ -21,7 +21,7 @@
   <div class="form-group">
     <label for="category">Category</label>
     <select class="form-control" id="category">
-      <option>5</option>
+      <option *ngFor="let category of (categories$ | async)" [value]="category.key"> {{category.payload.val().name}}</option>
     </select>
   </div>
 
