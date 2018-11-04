@@ -27,6 +27,8 @@ import {AdminAuthGuardService} from './service/admin-auth-guard.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import {CategoryService} from './service/category.service';
+import {ReactiveFormsModule} from '@angular/forms';
+import {ProductService} from './service/product.service';
 
 
 
@@ -84,12 +86,16 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    AngularFireDatabaseModule // imports for working with save data on firebase
+    AngularFireDatabaseModule, // imports for working with save data on firebase,
+
+    // Working with Form
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
     UserService,
-    CategoryService
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
