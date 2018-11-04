@@ -1,48 +1,63 @@
-<form [formGroup]="productForm">
-
-  <!--Title-->
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input formControlName="title" type="text" class="form-control" id="title">
-    <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
-  </div>
-
-  <!--Price-->
-  <div class="form-group">
-    <label for="price">Price</label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">$</span>
+<div class="row">
+  <div class="col-md-6">
+    <form [formGroup]="productForm">
+      <!--Title-->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input formControlName="title" type="text" class="form-control" id="title">
+        <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
       </div>
-      <input
-        formControlName="price"
-        id="price" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+
+      <!--Price-->
+      <div class="form-group">
+        <label for="price">Price</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">$</span>
+          </div>
+          <input
+            formControlName="price"
+            id="price" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
+      </div>
+
+      <!--Category-->
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select formControlName="category" class="form-control" id="category">
+          <option value="">Please select one</option>
+          <option *ngFor="let category of (categories$ | async)" [value]="category.key">
+            {{category.name}}
+          </option>
+        </select>
+        <div *ngIf="category.touched && category.invalid" class="alert alert-danger"> This field is required</div>
+      </div>
+
+      <!--Image URL-->
+      <div class="form-group">
+        <label for="imageURL">Image</label>
+        <input type="text" class="form-control" id="imageURL" formControlName="imageURL">
+        <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
+      </div>
+
+      <div *ngIf="isSubmit && productForm.invalid" class="alert alert-danger">Please ensure all fields are fill out</div>
+
+      <button type="submit" class="btn btn-primary" (click)="submitProductForm()">Submit</button>
+
+    </form>
+  </div>
+
+  <!--Preview Image-->
+  <div class="col-md-6">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" [src]="imageURL.value">
+      <div class="card-body">
+        <h5 class="card-title">{{title.value}}</h5>
+        <p class="card-text">{{price.value | currency: 'USD': true}}</p>
+      </div>
     </div>
-    <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
   </div>
-
-  <!--Category-->
-  <div class="form-group">
-    <label for="category">Category</label>
-    <select formControlName="category" class="form-control" id="category">
-      <option value="">Please select one</option>
-      <option *ngFor="let category of (categories$ | async)" [value]="category.key">
-        {{category.name}}
-      </option>
-    </select>
-    <div *ngIf="category.touched && category.invalid" class="alert alert-danger"> This field is required</div>
-  </div>
-
-  <!--Image URL-->
-  <div class="form-group">
-    <label for="imageURL">Image</label>
-    <input type="text" class="form-control" id="imageURL" formControlName="imageURL">
-    <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
-  </div>
-
-  <div *ngIf="isSubmit" class="alert alert-danger">Please ensure all fields are fill out</div>
+</div>
 
 
-  <button type="submit" class="btn btn-primary" (click)="submitProductForm()">Submit</button>
-
-</form>

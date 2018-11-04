@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../service/product.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class ProductFormComponent implements OnInit {
 
   constructor(categoryService: CategoryService,
               private formBuilder: FormBuilder,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
 
     this.categories$ = categoryService.getListCategories()
       .snapshotChanges()
@@ -75,10 +77,16 @@ export class ProductFormComponent implements OnInit {
   }
 
   submitProductForm() {
-    console.log('[ProductFormComponent][submitProductForm()] productForm value', this.productForm.value);
     let product = this.productForm.value;
-    this.isSubmit = this.productForm.invalid;
-    this.productService.createProduct(product);
+    console.log('[ProductFormComponent][submitProductForm()] productForm value', product);
+    this.isSubmit = true;
+
+    if (this.productForm.valid) {
+      this.isSubmit = false;
+      this.productService.createProduct(product);
+      this.router.navigate(['admin/products']);
+    }
+
   }
 
   initProductForm() {
