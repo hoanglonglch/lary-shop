@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../service/product.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -22,7 +22,8 @@ export class ProductFormComponent implements OnInit {
   constructor(categoryService: CategoryService,
               private formBuilder: FormBuilder,
               private productService: ProductService,
-              private router: Router) {
+              private router: Router,
+              private route: ActivatedRoute) {
 
     this.categories$ = categoryService.getListCategories()
       .snapshotChanges()
@@ -74,6 +75,17 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = this.initProductForm();
+
+    let currentRoute = this.route.snapshot.paramMap.get('id');
+
+    // TODO: Finish this implement
+    if (currentRoute.match('new')) {
+      console.log('dont call', currentRoute);
+    } else {
+      console.log('call', currentRoute);
+    }
+
+    console.log('Route', this.route.snapshot.paramMap.get('id'));
   }
 
   submitProductForm() {
