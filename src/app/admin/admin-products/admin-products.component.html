@@ -1,1 +1,22 @@
-<a routerLink="/admin/products/new" class="btn btn-primary">Create New</a>
+<p>
+  <a routerLink="/admin/products/new" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Price</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of (products$ | async);  let i = index">
+    <th scope="row">{{i+1}}</th>
+    <td>{{product.title}}</td>
+    <td>{{product.price}}</td>
+    <td><a href="" class="btn btn-primary">Edit</a></td>
+  </tr>
+  </tbody>
+</table>
