@@ -6,6 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../service/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Product} from '../../../models/product';
 
 
 @Component({
@@ -16,10 +17,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class ProductFormComponent implements OnInit {
 
   categories$: Observable<any[]>;
+  product$: Observable<any>;
   productForm: FormGroup;
   isSubmit = false;
+  product1: Product;
 
-  constructor(categoryService: CategoryService,
+  constructor(private categoryService: CategoryService,
               private formBuilder: FormBuilder,
               private productService: ProductService,
               private router: Router,
@@ -76,13 +79,14 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.productForm = this.initProductForm();
 
-    let currentRoute = this.route.snapshot.paramMap.get('id');
+    let productId = this.route.snapshot.paramMap.get('id');
 
-    // TODO: Finish this implement
-    if (currentRoute.match('new')) {
-      console.log('dont call', currentRoute);
+    if (productId.match('new')) {
+      //TODO: [Bug] Form not show any input in this feild
+      console.log('dont call', productId);
     } else {
-      console.log('call', currentRoute);
+      console.log('call', productId);
+      this.product$ = this.productService.getProduct(productId);
     }
 
     console.log('Route', this.route.snapshot.paramMap.get('id'));
