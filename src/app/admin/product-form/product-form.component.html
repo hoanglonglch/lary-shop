@@ -1,11 +1,12 @@
-<ng-container *ngIf="(product$ | async) as product; else loading">
 <div class="row" >
   <div class="col-md-6">
     <form  [formGroup]="productForm">
       <!--Title-->
       <div class="form-group">
         <label for="title">Title</label>
-        <input formControlName="title" type="text" class="form-control" id="title" [value]="product.title">
+        <input formControlName="title"
+               [value]="(product && product.title) || ''"
+               type="text" class="form-control" id="title" >
         <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
       </div>
 
@@ -18,7 +19,7 @@
           </div>
           <input
             formControlName="price"
-            [value]="product.price"
+            [value]="(product && product.price) || ''"
             id="price" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
@@ -27,12 +28,29 @@
       <!--Category-->
       <div class="form-group">
         <label for="category">Category</label>
-          <select [(ngModel)]="product.category" formControlName="category" class="form-control" id="category">
+
+        <ng-container *ngIf="(product && product.category); else categorySelectTag">
+          <select
+            formControlName="category"
+            [(ngModel)]="product.category"
+            class="form-control" id="category">
+            <option *ngFor="let category of (categories$ | async)" [value]="category.key">
+              {{category.name}}
+            </option>
+          </select>
+        </ng-container>
+
+        <ng-template #categorySelectTag>
+          <select
+            formControlName="category"
+            class="form-control" id="category">
             <option value="">Please select one</option>
             <option *ngFor="let category of (categories$ | async)" [value]="category.key">
               {{category.name}}
             </option>
           </select>
+        </ng-template>
+
         <div *ngIf="category.touched && category.invalid" class="alert alert-danger"> This field is required</div>
       </div>
 
@@ -40,7 +58,7 @@
       <div class="form-group">
         <label for="imageURL">Image</label>
         <input
-          [value]="product.imageURL"
+          [value]="(product && product.imageURL) || ''"
           type="text" class="form-control" id="imageURL" formControlName="imageURL">
         <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -55,15 +73,12 @@
   <!--Preview Image-->
   <div class="col-md-6">
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" [src]="imageURL.value || product.imageURL">
+      <img class="card-img-top" *ngIf="product && product.imageURL" [src]="imageURL.value || product.imageURL">
       <div class="card-body">
-        <h5 class="card-title">{{title.value || product.title}}</h5>
-        <p class="card-text">{{ (price.value || product.price) | currency: 'USD': true}}</p>
+        <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
+        <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>
       </div>
     </div>
   </div>
 
 </div>
-</ng-container>
-
-<ng-template #loading>Loading</ng-template>

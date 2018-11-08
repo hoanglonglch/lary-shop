@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
   product$: Observable<any>;
   productForm: FormGroup;
   isSubmit = false;
-  product1: Product;
+  product = {};
 
   constructor(private categoryService: CategoryService,
               private formBuilder: FormBuilder,
@@ -81,15 +81,16 @@ export class ProductFormComponent implements OnInit {
 
     let productId = this.route.snapshot.paramMap.get('id');
 
-    if (productId.match('new')) {
-      //TODO: [Bug] Form not show any input in this feild
+    if (productId === 'new') {
       console.log('dont call', productId);
     } else {
       console.log('call', productId);
-      this.product$ = this.productService.getProduct(productId);
+      this.productService.getProduct(productId).subscribe( product => {
+        console.log('log here');
+        this.product = product;
+      });
     }
 
-    console.log('Route', this.route.snapshot.paramMap.get('id'));
   }
 
   submitProductForm() {
