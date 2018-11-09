@@ -2,6 +2,14 @@
   <a routerLink="/admin/products/new" class="btn btn-primary">Create New</a>
 </p>
 
+<p>
+  <input
+    type="text" class="form-control" placeholder="Search title"
+    #query
+    (keyup)="searchTitle(query.value)"
+  >
+</p>
+
 <table class="table">
   <thead>
   <tr>
@@ -12,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of (products$ | async);  let i = index">
+  <tr *ngFor="let product of filteredProduct;  let i = index">
     <th scope="row">{{i+1}}</th>
     <td>{{product.title}}</td>
     <td>{{product.price}}</td>
