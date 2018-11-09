@@ -66,6 +66,7 @@
       <div *ngIf="isSubmit && productForm.invalid" class="alert alert-danger">Please ensure all fields are fill out</div>
 
       <button type="submit" class="btn btn-primary" (click)="submitProductForm()">Submit</button>
+      <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete</button>
 
     </form>
   </div>

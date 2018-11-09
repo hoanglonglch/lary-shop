@@ -111,10 +111,7 @@ export class ProductFormComponent implements OnInit {
       }
 
       this.router.navigate(['admin/products']);
-
     }
-
-
   }
 
   initProductForm() {
@@ -132,6 +129,14 @@ export class ProductFormComponent implements OnInit {
         Validators.required
       ]]
     });
+  }
+
+  deleteProduct() {
+    if (!confirm('Are you sure?')) return;
+
+    this.productService.deteleProduct(this.productId);
+    this.router.navigate(['admin/products']);
+
   }
 
 }

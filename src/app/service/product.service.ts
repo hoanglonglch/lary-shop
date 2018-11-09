@@ -25,5 +25,9 @@ export class ProductService {
     return this.db.object('products/' + fireBaseProductID).update(product);
   }
 
+  deteleProduct(fireBaseProductID) {
+    return this.db.object('products/' + fireBaseProductID).remove();
+  }
+
 
 }
