@@ -20,7 +20,8 @@ export class ProductFormComponent implements OnInit {
   product$: Observable<any>;
   productForm: FormGroup;
   isSubmit = false;
-  product = {};
+  product: Product;
+  productId: string;
 
   constructor(private categoryService: CategoryService,
               private formBuilder: FormBuilder,
@@ -79,13 +80,13 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.productForm = this.initProductForm();
 
-    let productId = this.route.snapshot.paramMap.get('id');
+    this.productId = this.route.snapshot.paramMap.get('id');
 
-    if (productId === 'new') {
-      console.log('dont call', productId);
+    if (this.productId === 'new') {
+      console.log('dont call', this.productId);
     } else {
-      console.log('call', productId);
-      this.productService.getProduct(productId).subscribe( product => {
+      console.log('call', this.productId);
+      this.productService.getProduct(this.productId).subscribe( (product: Product) => {
         console.log('log here');
         this.product = product;
       });
@@ -95,14 +96,24 @@ export class ProductFormComponent implements OnInit {
 
   submitProductForm() {
     let product = this.productForm.value;
-    console.log('[ProductFormComponent][submitProductForm()] productForm value', product);
+    console.log('[ProductFormComponent][submitProductForm()] form product value:', product);
     this.isSubmit = true;
+
+    console.log('debug', this.productForm);
 
     if (this.productForm.valid) {
       this.isSubmit = false;
-      this.productService.createProduct(product);
+
+      if (this.productId === 'new') {
+        this.productService.createProduct(product);
+      } else {
+        this.productService.updateProduct(this.productId, product);
+      }
+
       this.router.navigate(['admin/products']);
+
     }
+
 
   }
 

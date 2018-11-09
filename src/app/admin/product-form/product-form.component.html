@@ -73,7 +73,7 @@
   <!--Preview Image-->
   <div class="col-md-6">
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" *ngIf="product && product.imageURL" [src]="imageURL.value || product.imageURL">
+      <img class="card-img-top" [src]="(product && product.imageURL) || imageURL.value">
       <div class="card-body">
         <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
         <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>

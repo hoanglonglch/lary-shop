@@ -17,8 +17,13 @@ export class ProductService {
     return this.db.list('products');
   }
 
-  getProduct(productId) {
-    return this.db.object('products/' + productId).valueChanges();
+  getProduct(fireBaseProductID) {
+    return this.db.object('products/' + fireBaseProductID).valueChanges();
   }
+
+  updateProduct(fireBaseProductID, product) {
+    return this.db.object('products/' + fireBaseProductID).update(product);
+  }
+
 
 }
