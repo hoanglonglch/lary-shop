@@ -58,7 +58,7 @@
       <div class="form-group">
         <label for="imageURL">Image</label>
         <input
-          [value]="(product && product.imageURL) || ''"
+          [value]="(product && product.imageUrl) || ''"
           type="text" class="form-control" id="imageURL" formControlName="imageURL">
         <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -74,7 +74,7 @@
   <!--Preview Image-->
   <div class="col-md-6">
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" [src]="(product && product.imageURL) || imageURL.value">
+      <img class="card-img-top" [src]="imageURL.value || (product && product.imageUrl)">
       <div class="card-body">
         <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
         <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>

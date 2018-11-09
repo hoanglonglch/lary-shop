@@ -29,6 +29,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 import {CategoryService} from './service/category.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from './service/product.service';
+import {DataTableModule} from 'angular-6-datatable';
 
 
 
@@ -98,7 +99,10 @@ const appRoutes: Routes = [
     AngularFireDatabaseModule, // imports for working with save data on firebase,
 
     // Working with Form
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
+    // Datatable
+    DataTableModule
   ],
   providers: [
     AuthService,

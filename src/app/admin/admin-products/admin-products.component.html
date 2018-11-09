@@ -10,21 +10,32 @@
   >
 </p>
 
-<table class="table">
+<table class="table table-striped" [mfData]="filteredProduct" #mf="mfDataTable" [mfRowsOnPage]="5">
   <thead>
   <tr>
-    <th scope="col">#</th>
-    <th scope="col">Title</th>
-    <th scope="col">Price</th>
-    <th scope="col">Action</th>
+    <th style="width: 5%" scope="col">#</th>
+    <th style="width: 50%" scope="col">
+      <mfDefaultSorter by="title">Title</mfDefaultSorter>
+    </th>
+    <th style="width: 30%" scope="col">
+      <mfDefaultSorter by="price">Price</mfDefaultSorter>
+    </th>
+    <th style="width: 15%" scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of filteredProduct;  let i = index">
+  <tr *ngFor="let product of mf.data;  let i = index">
     <th scope="row">{{i+1}}</th>
     <td>{{product.title}}</td>
     <td>{{product.price}}</td>
     <td><a [routerLink]="[product.key]" class="btn btn-primary">Edit</a></td>
   </tr>
   </tbody>
+  <tfoot>
+  <tr>
+    <td colspan="4">
+      <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+    </td>
+  </tr>
+  </tfoot>
 </table>
