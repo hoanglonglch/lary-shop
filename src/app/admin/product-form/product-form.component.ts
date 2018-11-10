@@ -3,7 +3,7 @@ import {CategoryService} from '../../service/category.service';
 import {AngularFireList} from 'angularfire2/database';
 import {Observable} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormControlDirective, FormGroup, Validators} from '@angular/forms';
 import {ProductService} from '../../service/product.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Product} from '../../../models/product';
@@ -38,7 +38,7 @@ export class ProductFormComponent implements OnInit {
           })
         ));
 
-    // This method will return node's key and node's value are compied
+    // ToLearn: This method will return node's key and node's value are compied
     /*this.categoryService.getListCategories().snapshotChanges().pipe(
       map(actions =>
         actions.map(a => {
@@ -81,17 +81,12 @@ export class ProductFormComponent implements OnInit {
     this.productForm = this.initProductForm();
 
     this.productId = this.route.snapshot.paramMap.get('id');
-
-    if (this.productId === 'new') {
-      console.log('dont call', this.productId);
-    } else {
-      console.log('call', this.productId);
+    if (this.productId !== 'new') {
       this.productService.getProduct(this.productId).subscribe( (product: Product) => {
-        console.log('log here');
         this.product = product;
+        this.fillTheProductForm(product);
       });
     }
-
   }
 
   submitProductForm() {
@@ -107,7 +102,7 @@ export class ProductFormComponent implements OnInit {
       if (this.productId === 'new') {
         this.productService.createProduct(product);
       } else {
-        this.productService.updateProduct(this.productId, product);
+        // this.productService.updateProduct(this.productId, product);
       }
 
       this.router.navigate(['admin/products']);
@@ -136,7 +131,13 @@ export class ProductFormComponent implements OnInit {
 
     this.productService.deteleProduct(this.productId);
     this.router.navigate(['admin/products']);
+  }
 
+  fillTheProductForm(product: Product) {
+    this.title.setValue(product.title);
+    this.price.setValue(product.price);
+    this.imageURL.setValue(product.imageUrl);
+    this.category.setValue(product.category);
   }
 
 }

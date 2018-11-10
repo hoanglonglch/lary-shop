@@ -5,7 +5,7 @@
       <div class="form-group">
         <label for="title">Title</label>
         <input formControlName="title"
-               [value]="(product && product.title) || ''"
+               [value]="''|| title.value"
                type="text" class="form-control" id="title" >
         <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -19,7 +19,7 @@
           </div>
           <input
             formControlName="price"
-            [value]="(product && product.price) || ''"
+            [value]="'' || price.value"
             id="price" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
@@ -28,8 +28,16 @@
       <!--Category-->
       <div class="form-group">
         <label for="category">Category</label>
+        <select
+          formControlName="category"
+          class="form-control" id="category">
+          <option *ngFor="let category of (categories$ | async)" [value]="category.key">
+            {{category.name}}
+          </option>
+        </select>
 
-        <ng-container *ngIf="(product && product.category); else categorySelectTag">
+        <!--ToLearn: Using ng-container-->
+        <!--<ng-container *ngIf="(product && product.category); else categorySelectTag">
           <select
             formControlName="category"
             [(ngModel)]="product.category"
@@ -49,7 +57,7 @@
               {{category.name}}
             </option>
           </select>
-        </ng-template>
+        </ng-template>-->
 
         <div *ngIf="category.touched && category.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -58,7 +66,7 @@
       <div class="form-group">
         <label for="imageURL">Image</label>
         <input
-          [value]="(product && product.imageUrl) || ''"
+          [value]= "'' || imageURL.value"
           type="text" class="form-control" id="imageURL" formControlName="imageURL">
         <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -73,7 +81,7 @@
 
   <!--Preview Image-->
   <div class="col-md-6">
-    <div class="card" style="width: 18rem;">
+    <div class="card" *ngIf="title.value" style="width: 18rem;">
       <img class="card-img-top" [src]="imageURL.value || (product && product.imageUrl)">
       <div class="card-body">
         <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
