@@ -64,11 +64,11 @@
 
       <!--Image URL-->
       <div class="form-group">
-        <label for="imageURL">Image</label>
+        <label for="imageUrl">Image</label>
         <input
-          [value]= "'' || imageURL.value"
-          type="text" class="form-control" id="imageURL" formControlName="imageURL">
-        <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
+          [value]= "'' || imageUrl.value"
+          type="text" class="form-control" id="imageUrl" formControlName="imageUrl">
+        <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger"> This field is required</div>
       </div>
 
       <div *ngIf="isSubmit && productForm.invalid" class="alert alert-danger">Please ensure all fields are fill out</div>
@@ -81,8 +81,8 @@
 
   <!--Preview Image-->
   <div class="col-md-6">
-    <div class="card" *ngIf="title.value" style="width: 18rem;">
-      <img class="card-img-top" [src]="imageURL.value || (product && product.imageUrl)">
+    <div class="card" *ngIf="imageUrl.value" style="width: 18rem;">
+      <img class="card-img-top" [src]="imageUrl.value || (product && product.imageUrl)">
       <div class="card-body">
         <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
         <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>
