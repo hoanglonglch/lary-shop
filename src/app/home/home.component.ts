@@ -1,8 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../service/category.service';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import {map, switchMap} from 'rxjs/operators';
+
+
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ProductService} from '../service/product.service';
+import {Product} from '../../models/product';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +16,11 @@ import {ActivatedRoute} from '@angular/router';
 export class HomeComponent implements OnInit {
 
   categories$: Observable<any []>;
+  products: Product[];
 
   constructor(private categoryService: CategoryService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private productService: ProductService) { }
 
   ngOnInit() {
     this.categories$ = this.categoryService.getListCategories()
@@ -25,6 +31,16 @@ export class HomeComponent implements OnInit {
             return ({ key: a.key, ...a.payload.val() });
           })
         ));
+
+    this.route.queryParamMap.pipe(
+      switchMap((queryParam: ParamMap) => {
+        console.log('category', queryParam.get('category'));
+        return this.productService.getProductByCategory(queryParam.get('category')).valueChanges();
+      })
+    ).subscribe( products => {
+      this.products = products as Product[];
+    });
+
   }
 
 }

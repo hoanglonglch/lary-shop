@@ -29,5 +29,13 @@ export class ProductService {
     return this.db.object('products/' + fireBaseProductID).remove();
   }
 
+  getProductByCategory(categoryName: string) {
+    if (!categoryName) return this.getAll();
+
+    return this.db.list('/products', ref => {
+      return ref.orderByChild('category').equalTo(categoryName);
+    });
+  }
+
 
 }
