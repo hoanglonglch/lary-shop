@@ -2,16 +2,8 @@
 
   <div class="col-12 col-md-3 sidebar-offcanvas" id="sidebar">
     <div class="list-group">
-      <a href="#" class="list-group-item active">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
-      <a href="#" class="list-group-item">Link</a>
+      <a [routerLink]="['']"  class="list-group-item">All</a>
+      <a *ngFor="let category of ( categories$ | async)" [routerLink]="['']" [queryParams]="{category: category.key}" class="list-group-item">{{category.name}}</a>
     </div>
   </div><!--/span-->
 
