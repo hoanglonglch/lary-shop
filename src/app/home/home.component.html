@@ -1,4 +1,5 @@
 <div class="row row-offcanvas row-offcanvas-right">
+
   <!--Categories-->
   <div class="col-12 col-md-3 sidebar-offcanvas" id="sidebar">
     <div class="list-group">
@@ -7,12 +8,11 @@
     </div>
   </div>
 
+  <!--Products-->
   <div class="col-12 col-md-9">
     <div class="row">
       <ng-container *ngFor="let product of products">
         <div class="col-12 col-md-4">
-
-          <!--Products-->
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" [src]="product.imageUrl">
             <div class="card-body">
