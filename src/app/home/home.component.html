@@ -1,31 +1,32 @@
 <div class="row row-offcanvas row-offcanvas-right">
-
+  <!--Categories-->
   <div class="col-12 col-md-3 sidebar-offcanvas" id="sidebar">
     <div class="list-group">
       <a [routerLink]="['']"  class="list-group-item">All</a>
       <a *ngFor="let category of ( categories$ | async)" [routerLink]="['']" [queryParams]="{category: category.key}" class="list-group-item">{{category.name}}</a>
     </div>
-  </div><!--/span-->
+  </div>
 
   <div class="col-12 col-md-9">
     <div class="row">
       <ng-container *ngFor="let product of products">
         <div class="col-12 col-md-4">
 
+          <!--Products-->
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" [src]="product.imageUrl">
             <div class="card-body">
               <h5 class="card-title">{{product.title}}</h5>
-              <p class="card-text">{{ product.price | currency: 'USD': true}}</p>
+              <p class="card-text">{{ product.price   }}</p>
               <a class="btn btn-primary" href="#" role="button">Add to cart</a>
             </div>
           </div>
-        </div><!--/span-->
+        </div>
       </ng-container>
-    </div><!--/row-->
-  </div><!--/span-->
+    </div>
+  </div>
 
-</div><!--/row-->
+</div>
 
 <hr>
 
