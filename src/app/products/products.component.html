@@ -3,14 +3,19 @@
   <!--Categories-->
   <div class="col-3">
     <div class="list-group">
-      <a *ngFor="let category of (categories$ | async)" href="#" class="list-group-item list-group-item-action">{{category.name}}</a>
+      <a *ngFor="let category of (categories$ | async)"
+         [routerLink]="['/products']"
+         [queryParams]="{category: category.key}"
+         [class.active]="category.key === queryParam"
+         href="#" class="list-group-item list-group-item-action">{{category.name}}</a>
+
     </div>
   </div>
 
   <!--Products-->
   <div class="col">
     <div class="row">
-      <ng-container *ngFor="let product of (products$ | async); let i = index">
+      <ng-container *ngFor="let product of filteredProduct; let i = index">
         <div class="col">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
