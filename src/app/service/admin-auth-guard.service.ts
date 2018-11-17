@@ -10,12 +10,14 @@ import {AppUser} from '../../models/app-user';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminAuthGuardService implements CanActivate{
+
+// TODO [ToRead]:  Using nested observable
+export class AdminAuthGuardService implements CanActivate {
 
   constructor(private authService: AuthService,
               private userService: UserService) { }
 
-  //Todo: Read carefully this case
+  // [ToRead]
   /*canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
     this.authService.user$.pipe(
