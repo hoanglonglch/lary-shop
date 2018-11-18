@@ -30,6 +30,7 @@ import {CategoryService} from './service/category.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from './service/product.service';
 import {DataTableModule} from 'angular-6-datatable';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 
 
 
@@ -85,7 +86,8 @@ const appRoutes: Routes = [
     AdminOrdersComponent,
     LoginComponent,
     NotFoundComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,
