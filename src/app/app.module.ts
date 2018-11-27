@@ -31,6 +31,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from './service/product.service';
 import {DataTableModule} from 'angular-6-datatable';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 
 
@@ -87,7 +88,8 @@ const appRoutes: Routes = [
     LoginComponent,
     NotFoundComponent,
     ProductFormComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,
