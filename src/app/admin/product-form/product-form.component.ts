@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
   product$: Observable<any>;
   productForm: FormGroup;
   isSubmit = false;
-  product: Product;
+  product = {} as Product;
   productId: string;
 
   constructor(private categoryService: CategoryService,
@@ -84,7 +84,7 @@ export class ProductFormComponent implements OnInit {
     if (this.productId !== 'new') {
       this.productService.getProduct(this.productId).subscribe( (product: Product) => {
         this.product = product;
-        this.fillTheProductForm(product);
+        // this.fillTheProductForm(product);
       });
     }
   }
@@ -131,11 +131,11 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['admin/products']);
   }
 
-  fillTheProductForm(product: Product) {
+  /*fillTheProductForm(product: Product) {
     this.title.setValue(product.title);
     this.price.setValue(product.price);
     this.imageUrl.setValue(product.imageUrl);
     this.category.setValue(product.category);
-  }
+  }*/
 
 }

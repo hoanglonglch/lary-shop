@@ -5,7 +5,7 @@
       <div class="form-group">
         <label for="title">Title</label>
         <input formControlName="title"
-               [value]="''|| title.value"
+               [(ngModel)]="product.title"
                type="text" class="form-control" id="title" >
         <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -19,7 +19,7 @@
           </div>
           <input
             formControlName="price"
-            [value]="'' || price.value"
+            [(ngModel)]="product.price"
             id="price" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
@@ -30,7 +30,8 @@
         <label for="category">Category</label>
         <select
           formControlName="category"
-          class="form-control" id="category">
+          class="form-control" id="category"
+          [(ngModel)]="product.category">
           <option *ngFor="let category of (categories$ | async)" [value]="category.key">
             {{category.name}}
           </option>
@@ -66,7 +67,7 @@
       <div class="form-group">
         <label for="imageUrl">Image</label>
         <input
-          [value]= "'' || imageUrl.value"
+          [(ngModel)]="product.imageUrl"
           type="text" class="form-control" id="imageUrl" formControlName="imageUrl">
         <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -81,13 +82,14 @@
 
   <!--Preview Image-->
   <div class="col-md-6">
-    <div class="card" *ngIf="imageUrl.value" style="width: 18rem;">
-      <img class="card-img-top" [src]="imageUrl.value || (product && product.imageUrl)">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" [src]="product.imageUrl">
       <div class="card-body">
-        <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
-        <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>
+        <h5 class="card-title">{{product.title}}</h5>
+        <p class="card-text">{{ product.price | currency: 'USD': true}}</p>
       </div>
     </div>
+    <!--<app-product-card [product]="product"></app-product-card>-->
   </div>
 
 </div>
