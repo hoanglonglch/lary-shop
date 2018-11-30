@@ -34,6 +34,10 @@ export class CartService {
     return this.database.object('/shopping-carts' + cartId);
   }
 
+  getItems (cartId, productKey) {
+    return this.database.object('/shopping-carts/' + cartId + '/items/' + productKey);
+  }
+
   private async getOrCreateCartId() {
     let cartKey = localStorage.getItem('cartKey');
 
@@ -48,24 +52,15 @@ export class CartService {
 
   async addToCart (product: Product) {
     let cartId = await this.getOrCreateCartId();
-    let items$ = this.database.object('/shopping-carts/' + cartId + '/items/' + product.key);
+    let items$ = this.getItems(cartId, product.key);
     items$.valueChanges().pipe(take(1)).subscribe(item => {
-
-      if (item) {
-        items$.update({
-          quantity: +item.quantity + 1
-        });
-
-      } else {
-        items$.set({
-          product: product,
-          quantity: 1
-        });
-      }
-      console.log('item', item);
+      items$.update({
+        product: product,
+        quantity: (item && item.quantity || 0) + 1
+      });
     });
-
   }
+
   /**
    *[Refactor] This method has problem, return nothing,
    *do a lot of work (getCart, createCart) and not relative to function name
