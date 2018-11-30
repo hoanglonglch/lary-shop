@@ -21,6 +21,36 @@ export class CartService {
     this.cart$ = database.list('/shopping-carts');
   }
 
+  private createCart (cart: Cart) {
+    return this.database.list('/shopping-carts/').push(cart);
+  }
+
+  private createEmptyCart(){
+    return this.database.list('/shopping-carts/').push({
+      dateCreated: new Date().getTime()
+    });
+  }
+
+  private getCart (cartId) {
+    return this.database.object('/shopping-carts' + cartId);
+  }
+
+  private async getOrCreateCard() {
+    let cartKey = localStorage.getItem('cartKey');
+
+    if (!cartKey) {
+      let cartItem = await this.createEmptyCart();
+      localStorage.setItem('cartKey', cartItem.key);
+      return this.getCart(cartItem.key);
+    }
+
+    this.getCart(cartKey);
+  }
+  /**
+   *[Refactor] This method has problem, return nothing,
+   *do a lot of work (getCart, createCart) and not relative to function name
+   * [TODO][Bug] Memory Leak
+   **/
   addCart(product: Product) {
 
     let cart: Cart = {
@@ -31,7 +61,7 @@ export class CartService {
     let cartKey = localStorage.getItem('cartKey');
 
     if (cartKey) {
-      this.database.object('/shopping-carts/' + cartKey).valueChanges()
+      this.getCart(cartKey).valueChanges()
       .subscribe((shoppingCart: Cart) => {
         console.log('cart', shoppingCart);
 
@@ -47,10 +77,8 @@ export class CartService {
         }
       });
 
-
     } else {
-      this.database.list('/shopping-carts').push(cart).then(item => {
-        console.log('item', item);
+      this.createCart(cart).then(item => {
         console.log('key', item.key);
         localStorage.setItem('cartKey', item.key);
       });
