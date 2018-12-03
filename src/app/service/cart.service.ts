@@ -6,6 +6,7 @@ import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {forEach} from '@angular/router/src/utils/collection';
 import { take } from 'rxjs/operators';
+import {Item} from '../../models/item';
 
 
 
@@ -50,10 +51,15 @@ export class CartService {
     return cartKey;
   }
 
+   getQuantity (productId: string) {
+    let cartId = localStorage.getItem('cartKey');
+   return this.database.list('/shopping-carts/' + cartId + '/items');
+  }
+
   async addToCart (product: Product) {
     let cartId = await this.getOrCreateCartId();
     let items$ = this.getItems(cartId, product.key);
-    items$.valueChanges().pipe(take(1)).subscribe(item => {
+    items$.valueChanges().pipe(take(1)).subscribe((item: Item) => {
       items$.update({
         product: product,
         quantity: (item && item.quantity || 0) + 1

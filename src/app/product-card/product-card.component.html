@@ -8,5 +8,6 @@
     <button *ngIf="isShowAddToCart"
        (click)="addToCart(product)"
         class="btn btn-primary d-block">Add to cart</button>
+    {{quantity > 0 ? quantity: ''}}
   </div>
 </div>
