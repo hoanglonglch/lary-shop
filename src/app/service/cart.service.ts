@@ -31,8 +31,9 @@ export class CartService {
     });
   }
 
-  private getCart (cartId) {
-    return this.database.object('/shopping-carts' + cartId);
+  async getCart () {
+    let cartId = await this.getOrCreateCartId();
+    return this.database.object('/shopping-carts/' + cartId);
   }
 
   getItems (cartId, productKey) {
@@ -72,7 +73,7 @@ export class CartService {
    *do a lot of work (getCart, createCart) and not relative to function name
    * [TODO][Bug] Memory Leak
    **/
-  addCart(product: Product) {
+  /*addCart(product: Product) {
 
     let cart: Cart = {
       dateCreated: '',
@@ -106,5 +107,5 @@ export class CartService {
     }
 
 
-  }
+  }*/
 }

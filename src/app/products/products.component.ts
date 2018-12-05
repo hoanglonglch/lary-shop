@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from '../service/product.service';
 import {CategoryService} from '../service/category.service';
 import {map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {Product} from '../../models/product';
+import {CartService} from '../service/cart.service';
+import {ShoppingCart} from '../../models/shopping-cart';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -12,17 +15,25 @@ import {Product} from '../../models/product';
 })
 
 // TODO [ToRead]:  Using nested observable
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
+
 
   filteredProduct: Product [];
   products: Product [] = [];
   categoryQueryParam = '';
+  shoppingCart = {} as ShoppingCart;
+  subscription: Subscription;
 
   constructor(private productService: ProductService,
               private categoryService: CategoryService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  async ngOnInit() {
     // [ToRead]
     /*this.productService.getAll().valueChanges().subscribe( products => {
       console.log('products in on init', products);
@@ -56,6 +67,13 @@ export class ProductsComponent implements OnInit {
       this.filteredProduct = this.categoryQueryParam
         ? this.products.filter(product => product.category === this.categoryQueryParam)
         : this.products;
+    });
+
+    // [TODO] Finish this function
+    let shoppingCart$ = await this.cartService.getCart();
+    this.subscription = shoppingCart$.valueChanges().subscribe((shoppingCart: ShoppingCart) => {
+      this.shoppingCart = shoppingCart;
+      console.log('data', shoppingCart);
     });
   }
 

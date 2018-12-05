@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../../models/product';
 import {CartService} from '../service/cart.service';
 import {Item} from '../../models/item';
+import {ShoppingCart} from '../../models/shopping-cart';
 
 @Component({
   selector: 'app-product-card',
@@ -11,7 +12,9 @@ import {Item} from '../../models/item';
 export class ProductCardComponent implements OnInit {
 
   @Input('product') product: Product;
-  @Input('isShowAddToCart') isShowAddToCart = false;
+  @Input('is-show-add-to-cart') isShowAddToCart = false;
+  @Input('shopping-cart') shoppingCart: ShoppingCart;
+
   quantity = 0;
 
   constructor (private cartService: CartService) { }
@@ -24,10 +27,20 @@ export class ProductCardComponent implements OnInit {
         }
       });
     });
+
+    this.getQuantity();
   }
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
+  }
+
+  getQuantity() {
+
+    console.log('this.shoppingCart', this.shoppingCart);
+    /*this.shoppingCart.items.forEach(item => {
+      console.log('item', item);
+    });*/
   }
 
 }
