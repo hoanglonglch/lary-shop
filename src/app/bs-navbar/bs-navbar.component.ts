@@ -17,7 +17,6 @@ export class BsNavbarComponent implements OnInit {
   ngOnInit() {
     this.authService.appUser$
       .subscribe((appUser: AppUser) => {
-        console.log('[BsNavbarComponent][ngOnInit()]{appUser}', appUser);
         this.appUser = appUser;
       });
   }

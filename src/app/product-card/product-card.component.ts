@@ -15,20 +15,9 @@ export class ProductCardComponent implements OnInit {
   @Input('is-show-add-to-cart') isShowAddToCart = false;
   @Input('shopping-cart') shoppingCart: ShoppingCart;
 
-  quantity = 0;
-
   constructor (private cartService: CartService) { }
 
   ngOnInit() {
-    let items$ = this.cartService.getQuantity(this.product.key).valueChanges().subscribe((items: Item[]) => {
-      items.forEach(item => {
-        if (item.product.key === this.product.key) {
-          this.quantity = item.quantity;
-        }
-      });
-    });
-
-    this.getQuantity();
   }
 
   addToCart(product: Product) {
@@ -36,11 +25,14 @@ export class ProductCardComponent implements OnInit {
   }
 
   getQuantity() {
+    let items = this.shoppingCart.items;
+    let item = items && items[this.product.key] as Item;
 
-    console.log('this.shoppingCart', this.shoppingCart);
-    /*this.shoppingCart.items.forEach(item => {
-      console.log('item', item);
-    });*/
+    if (item) {
+      return item.quantity;
+    } else {
+      return 0;
+    }
   }
 
 }

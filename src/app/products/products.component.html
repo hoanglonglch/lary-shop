@@ -13,8 +13,8 @@
       <ng-container *ngFor="let product of filteredProduct; let i = index">
         <div class="col">
           <app-product-card
-            [shopping-cart]="shoppingCart"
             [product]="product"
+            [shopping-cart]="shoppingCart"
             [is-show-add-to-cart]="true"></app-product-card>
         </div>
         <div *ngIf="(i+1)%2 === 0" class="w-100"></div>

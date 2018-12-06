@@ -36,7 +36,7 @@ export class CartService {
     return this.database.object('/shopping-carts/' + cartId);
   }
 
-  getItems (cartId, productKey) {
+  getItem (cartId, productKey) {
     return this.database.object('/shopping-carts/' + cartId + '/items/' + productKey);
   }
 
@@ -59,9 +59,9 @@ export class CartService {
 
   async addToCart (product: Product) {
     let cartId = await this.getOrCreateCartId();
-    let items$ = this.getItems(cartId, product.key);
-    items$.valueChanges().pipe(take(1)).subscribe((item: Item) => {
-      items$.update({
+    let item$ = this.getItem(cartId, product.key);
+    item$.valueChanges().pipe(take(1)).subscribe((item: Item) => {
+      item$.update({
         product: product,
         quantity: (item && item.quantity || 0) + 1
       });
