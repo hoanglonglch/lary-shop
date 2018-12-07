@@ -20,12 +20,12 @@ export class ProductCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
+  addToCart() {
+    this.cartService.addToCart(this.product);
   }
 
-  removeProductInCart (product: Product) {
-    this.cartService.removeProductInCart(product);
+  removeFromCart () {
+    this.cartService.removeFromCart(this.product);
   }
 
   getQuantity(): number {

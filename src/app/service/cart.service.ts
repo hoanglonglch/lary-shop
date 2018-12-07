@@ -53,28 +53,21 @@ export class CartService {
    return this.database.list('/shopping-carts/' + cartId + '/items');
   }
 
-  async addToCart (product: Product) {
+   addToCart (product: Product) {
+    this.updateItemQuatity(product, 1);
+  }
+
+  async removeFromCart (product: Product) {
+    this.updateItemQuatity(product, -1);
+  }
+
+  async updateItemQuatity (product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.key);
     item$.valueChanges().pipe(take(1)).subscribe((item: Item) => {
       item$.update({
         product: product,
-        quantity: (item && item.quantity || 0) + 1
-      });
-    });
-  }
-
-  async removeProductInCart (product: Product) {
-  //  get cart id
-  //  get item in cart
-  //  remove quantity
-    let cartId = await this.getOrCreateCartId();
-    let item$ = this.getItem(cartId, product.key);
-    item$.valueChanges().pipe(take(1)).subscribe( (item: Item) => {
-      console.log('item', item);
-      item$.update({
-        product: product,
-        quantity: item.quantity - 1
+        quantity: (item && item.quantity || 0) + change
       });
     });
   }
