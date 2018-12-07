@@ -24,6 +24,10 @@ export class ProductCardComponent implements OnInit {
     this.cartService.addToCart(product);
   }
 
+  removeProductInCart (product: Product) {
+    this.cartService.removeProductInCart(product);
+  }
+
   getQuantity(): number {
     let items = this.shoppingCart.items;
     let item = items && items[this.product.key] as Item;
@@ -34,5 +38,6 @@ export class ProductCardComponent implements OnInit {
       return 0;
     }
   }
+
 
 }

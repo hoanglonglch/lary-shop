@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Product} from '../../models/product';
 import {Cart} from '../../models/cart';
-import {map, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {forEach} from '@angular/router/src/utils/collection';
-import { take } from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 import {Item} from '../../models/item';
-
 
 
 @Injectable({
@@ -64,6 +60,21 @@ export class CartService {
       item$.update({
         product: product,
         quantity: (item && item.quantity || 0) + 1
+      });
+    });
+  }
+
+  async removeProductInCart (product: Product) {
+  //  get cart id
+  //  get item in cart
+  //  remove quantity
+    let cartId = await this.getOrCreateCartId();
+    let item$ = this.getItem(cartId, product.key);
+    item$.valueChanges().pipe(take(1)).subscribe( (item: Item) => {
+      console.log('item', item);
+      item$.update({
+        product: product,
+        quantity: item.quantity - 1
       });
     });
   }
