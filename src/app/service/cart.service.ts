@@ -4,6 +4,7 @@ import {Product} from '../../models/product';
 import {Cart} from '../../models/cart';
 import {take} from 'rxjs/operators';
 import {ShoppingCartItem} from '../../models/shopping-cart-item';
+import {map, switchMap} from 'rxjs/operators';
 
 
 @Injectable({
