@@ -1,5 +1,5 @@
-import {Item} from './item';
+import {ShoppingCartItem} from './shopping-cart-item';
 
 export interface ShoppingCart {
-  items: Item [];
+  items: ShoppingCartItem [];
 }

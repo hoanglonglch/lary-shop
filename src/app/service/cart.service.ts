@@ -3,7 +3,7 @@ import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
 import {Product} from '../../models/product';
 import {Cart} from '../../models/cart';
 import {take} from 'rxjs/operators';
-import {Item} from '../../models/item';
+import {ShoppingCartItem} from '../../models/shopping-cart-item';
 
 
 @Injectable({
@@ -64,7 +64,7 @@ export class CartService {
   async updateItemQuatity (product: Product, change: number) {
     let cartId = await this.getOrCreateCartId();
     let item$ = this.getItem(cartId, product.key);
-    item$.valueChanges().pipe(take(1)).subscribe((item: Item) => {
+    item$.valueChanges().pipe(take(1)).subscribe((item: ShoppingCartItem) => {
       item$.update({
         product: product,
         quantity: (item && item.quantity || 0) + change

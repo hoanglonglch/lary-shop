@@ -3,7 +3,7 @@ import {AuthService} from '../service/auth.service';
 import {AppUser} from '../../models/app-user';
 import {CartService} from '../service/cart.service';
 import {ShoppingCart} from '../../models/shopping-cart';
-import {Item} from '../../models/item';
+import {ShoppingCartItem} from '../../models/shopping-cart-item';
 
 
 @Component({
@@ -14,7 +14,7 @@ import {Item} from '../../models/item';
 export class BsNavbarComponent implements OnInit {
 
   appUser: AppUser;
-  quantity = 0;
+  shoppingCartItemCount = 0;
 
   constructor(public authService: AuthService,
               private cartService: CartService) {
@@ -28,16 +28,11 @@ export class BsNavbarComponent implements OnInit {
 
     let cart$ = await this.cartService.getCart();
     cart$.valueChanges().subscribe((cart: ShoppingCart) => {
-      let items: Item[] = Object.keys(cart.items)
-        .map(productKey => {
-          return cart.items[productKey];
-        });
-
-      this.quantity = 0;
-      items.forEach((item: Item) => {
-        this.quantity += item.quantity;
-      });
-
+      this.shoppingCartItemCount = 0;
+      for (let productId in cart.items) {
+        console.log('productId', productId);
+        this.shoppingCartItemCount += cart.items[productId].quantity;
+      }
     });
   }
 

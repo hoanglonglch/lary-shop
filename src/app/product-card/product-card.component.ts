@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../../models/product';
 import {CartService} from '../service/cart.service';
-import {Item} from '../../models/item';
+import {ShoppingCartItem} from '../../models/shopping-cart-item';
 import {ShoppingCart} from '../../models/shopping-cart';
 
 @Component({
@@ -30,7 +30,7 @@ export class ProductCardComponent implements OnInit {
 
   getQuantity(): number {
     let items = this.shoppingCart.items;
-    let item = items && items[this.product.key] as Item;
+    let item = items && items[this.product.key] as ShoppingCartItem;
 
     if (item) {
       return item.quantity;
