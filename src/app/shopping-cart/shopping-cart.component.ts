@@ -21,11 +21,11 @@ export class ShoppingCartComponent implements OnInit {
     let cart$ = await this.cartService.getCart();
     this.shoppingCart$ = cart$.valueChanges().pipe(map((cart: ShoppingCart) => new ShoppingCart(cart.items)));
 
-    this.shoppingCart$.subscribe((shoppingCart: ShoppingCart) => {
+    /*this.shoppingCart$.subscribe((shoppingCart: ShoppingCart) => {
       this.shoppingCartItems = [];
       for (let productId in shoppingCart.items) {
         this.shoppingCartItems.push(shoppingCart.items[productId]);
       }
-    });
+    });*/
   }
 }
