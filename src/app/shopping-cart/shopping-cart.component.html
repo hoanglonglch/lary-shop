@@ -13,10 +13,10 @@
     </thead>
     <tbody>
 
-    <tr *ngFor="let productId of shoppingCart.productIds; let index = index">
+    <tr *ngFor="let shoppingCartItem of shoppingCart.listItems; let index = index">
       <td>{{index+1}}</td>
-      <td>{{shoppingCart.items[productId].product.title}}</td>
-      <td>{{shoppingCart.items[productId].quantity}}</td>
+      <td>{{shoppingCartItem.product.title}}</td>
+      <td>{{shoppingCartItem.quantity}}</td>
     </tr>
 
     </tbody>
