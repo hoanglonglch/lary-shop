@@ -31,7 +31,6 @@ export class BsNavbarComponent implements OnInit {
 
     let cart$ = await this.cartService.getCart();
 
-
     this.shoppingCart$ = cart$.valueChanges().pipe(
       map((cart: ShoppingCart) => {
         return new ShoppingCart(cart.items);

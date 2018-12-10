@@ -1,3 +1,18 @@
-<p>
-  shopping-cart works!
-</p>
+<h1>Shopping Cart</h1>
+<p *ngIf="(shoppingCart$ | async) as shoppingCart">You have {{shoppingCart.totalItemsCount}} items in your shopping cart.</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Product</th>
+    <th scope="col">Quantity</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let shoppingCartItem of shoppingCartItems; let index = index">
+    <td>{{index+1}}</td>
+    <td>{{shoppingCartItem.product.title}}</td>
+    <td>{{shoppingCartItem.quantity}}</td>
+  </tr>
+  </tbody>
+</table>
