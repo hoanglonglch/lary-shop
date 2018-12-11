@@ -9,6 +9,7 @@
       <th scope="col">#</th>
       <th scope="col">Product</th>
       <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
     </tr>
     </thead>
     <tbody>
@@ -17,8 +18,14 @@
       <td>{{index+1}}</td>
       <td>{{shoppingCartItem.product.title}}</td>
       <td>{{shoppingCartItem.quantity}}</td>
+      <td>{{ (shoppingCartItem.quantity * shoppingCartItem.product.price) | currency:'USD': true}}</td>
     </tr>
-
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{shoppingCart.totalPrice | currency: 'USD'}}</td>
+    </tr>
     </tbody>
   </table>
 </ng-container>
