@@ -31,7 +31,6 @@ export class ShoppingCart {
   getQuantity(product: Product): number {
     let items = this.items;
     let item = items && items[product.key] as ShoppingCartItem;
-
     if (item) {
       return item.quantity;
     } else {

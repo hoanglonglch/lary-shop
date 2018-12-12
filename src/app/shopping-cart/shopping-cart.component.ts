@@ -18,6 +18,9 @@ export class ShoppingCartComponent implements OnInit {
    async ngOnInit() {
     let cart$ = await this.cartService.getCart();
     this.shoppingCart$ = cart$.valueChanges().pipe(map((cart: ShoppingCart) => new ShoppingCart(cart.items)));
+  }
 
+  removeShoppingCart(){
+    this.cartService.removeShoppingCart();
   }
 }

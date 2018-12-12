@@ -14,20 +14,7 @@ import {ShoppingCart} from '../../models/shopping-cart';
 })
 export class CartService {
 
-  cart$: AngularFireList<any []>;
-
   constructor(private database: AngularFireDatabase) {
-    this.cart$ = database.list('/shopping-carts');
-  }
-
-  private createCart (cart: Cart) {
-    return this.database.list('/shopping-carts/').push(cart);
-  }
-
-  private createEmptyCart() {
-    return this.database.list('/shopping-carts/').push({
-      dateCreated: new Date().getTime()
-    });
   }
 
   async getCart ():  Promise<AngularFireObject<ShoppingCart>> {
@@ -37,18 +24,6 @@ export class CartService {
 
   getItem (cartId, productKey) {
     return this.database.object('/shopping-carts/' + cartId + '/items/' + productKey);
-  }
-
-  private async getOrCreateCartId() {
-    let cartKey = localStorage.getItem('cartKey');
-
-    if (!cartKey) {
-      let cartItem = await this.createEmptyCart();
-      localStorage.setItem('cartKey', cartItem.key);
-      return cartItem.key;
-    }
-
-    return cartKey;
   }
 
    getQuantity (productId: string) {
@@ -72,6 +47,29 @@ export class CartService {
         product: product,
         quantity: (item && item.quantity || 0) + change
       });
+    });
+  }
+
+  async removeShoppingCart () {
+    let cartId = await this.getOrCreateCartId();
+    this.database.object('/shopping-carts/' + cartId + '/items').remove();
+  }
+
+  private async getOrCreateCartId() {
+    let cartKey = localStorage.getItem('cartKey');
+
+    if (!cartKey) {
+      let cartItem = await this.createEmptyCart();
+      localStorage.setItem('cartKey', cartItem.key);
+      return cartItem.key;
+    }
+
+    return cartKey;
+  }
+
+  private createEmptyCart() {
+    return this.database.list('/shopping-carts/').push({
+      dateCreated: new Date().getTime()
     });
   }
 
