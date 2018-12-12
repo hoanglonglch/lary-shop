@@ -33,6 +33,7 @@ import {DataTableModule} from 'angular-6-datatable';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import {CartService} from './service/cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,

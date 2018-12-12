@@ -24,20 +24,4 @@ export class ProductCardComponent implements OnInit {
     this.cartService.addToCart(this.product);
   }
 
-  removeFromCart () {
-    this.cartService.removeFromCart(this.product);
-  }
-
-  getQuantity(): number {
-    let items = this.shoppingCart.items;
-    let item = items && items[this.product.key] as ShoppingCartItem;
-
-    if (item) {
-      return item.quantity;
-    } else {
-      return 0;
-    }
-  }
-
-
 }

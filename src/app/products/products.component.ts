@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filteredProduct: Product [];
   products: Product [] = [];
   categoryQueryParam = '';
-  shoppingCart = {} as ShoppingCart;
+  shoppingCart: ShoppingCart;
   subscription: Subscription;
 
   constructor(private productService: ProductService,
@@ -69,10 +69,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
         : this.products;
     });
 
-    // [TODO] Finish this function
     let shoppingCart$ = await this.cartService.getCart();
     this.subscription = shoppingCart$.valueChanges().subscribe((shoppingCart: ShoppingCart) => {
-      this.shoppingCart = shoppingCart;
+      this.shoppingCart = new ShoppingCart(shoppingCart.items);
     });
   }
 
