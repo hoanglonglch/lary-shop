@@ -63,16 +63,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
       })
     ).subscribe( paramMap => {
       this.categoryQueryParam = paramMap.get('category');
+      this.applyFilter();
 
-      this.filteredProduct = this.categoryQueryParam
-        ? this.products.filter(product => product.category === this.categoryQueryParam)
-        : this.products;
     });
 
     let shoppingCart$ = await this.cartService.getCart();
     this.subscription = shoppingCart$.valueChanges().subscribe((shoppingCart: ShoppingCart) => {
       this.shoppingCart = new ShoppingCart(shoppingCart.items);
     });
+
+  }
+
+  applyFilter() {
+    this.filteredProduct = this.categoryQueryParam
+      ? this.products.filter(product => product.category === this.categoryQueryParam)
+      : this.products;
   }
 
 }
