@@ -1,5 +1,5 @@
 <h1>Shopping Cart</h1>
-<ng-container  *ngIf="(shoppingCart$ | async) as shoppingCart">
+<div class="row col-10"  *ngIf="(shoppingCart$ | async) as shoppingCart">
 
   <p>You have {{shoppingCart.totalItemsCount}} items in your shopping
     cart.</p>
@@ -15,8 +15,12 @@
     <tbody>
 
     <tr *ngFor="let shoppingCartItem of shoppingCart.listItems; let index = index">
-      <td>{{index+1}}</td>
-      <td>{{shoppingCartItem.product.title}}</td>
+      <td>
+        <div [style.backgroundImage]="'url('+shoppingCartItem.product.imageUrl+')'"
+             class="thumbnail"></div>
+      </td>
+      <td>
+        {{shoppingCartItem.product.title}}</td>
       <td>
         <product-quantity
           [product]="shoppingCartItem.product"
@@ -36,4 +40,4 @@
   <button
     (click)="removeShoppingCart()"
     class="btn btn-danger">Clear Shopping Cart</button>
-</ng-container>
+</div>
