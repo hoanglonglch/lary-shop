@@ -8,8 +8,8 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Product</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
+      <th scope="col" class="text-center w-25" >Quantity</th>
+      <th scope="col" class="text-right">Price</th>
     </tr>
     </thead>
     <tbody>
@@ -23,14 +23,14 @@
           [shopping-cart]="shoppingCart">
         </product-quantity>
       </td>
-      <td>{{ (shoppingCartItem.totalPrice) | currency:'USD': true}}</td>
+      <td class="text-right">{{ (shoppingCartItem.totalPrice) | currency:'USD': true}}</td>
     </tr>
     </tbody>
     <tfoot>
       <td></td>
       <td></td>
       <td></td>
-      <td>{{shoppingCart.totalPrice | currency: 'USD'}}</td>
+      <td class="text-right">{{shoppingCart.totalPrice | currency: 'USD'}}</td>
     </tfoot>
   </table>
   <button

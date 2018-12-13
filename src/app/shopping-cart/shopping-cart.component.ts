@@ -20,7 +20,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCart$ = cart$.valueChanges().pipe(map((cart: ShoppingCart) => new ShoppingCart(cart.items)));
   }
 
-  removeShoppingCart(){
+  removeShoppingCart() {
     this.cartService.removeShoppingCart();
   }
 }
