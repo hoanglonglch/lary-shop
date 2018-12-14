@@ -3,6 +3,9 @@
 
   <p>You have {{shoppingCart.totalItemsCount}} items in your shopping
     cart.</p>
+  <button
+    (click)="removeShoppingCart()"
+    class="btn btn-light">Clear Shopping Cart</button>
   <table class="table table-striped">
     <thead>
     <tr>
@@ -37,7 +40,5 @@
       <td class="text-right">{{shoppingCart.totalPrice | currency: 'USD'}}</td>
     </tfoot>
   </table>
-  <button
-    (click)="removeShoppingCart()"
-    class="btn btn-danger">Clear Shopping Cart</button>
+  <a routerLink="/check-out" class="btn btn-primary">Check out</a>
 </div>
