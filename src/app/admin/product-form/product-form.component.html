@@ -5,7 +5,7 @@
       <div class="form-group">
         <label for="title">Title</label>
         <input formControlName="title"
-               [value]="''|| title.value"
+               [(ngModel)]="product.title"
                type="text" class="form-control" id="title" >
         <div *ngIf="title.touched && title.invalid" class="alert alert-danger"> This field is required</div>
       </div>
@@ -19,7 +19,7 @@
           </div>
           <input
             formControlName="price"
-            [value]="'' || price.value"
+            [(ngModel)]="product.price"
             id="price" type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
         </div>
         <div *ngIf="price.touched && price.invalid" class="alert alert-danger"> This field is required</div>
@@ -30,7 +30,8 @@
         <label for="category">Category</label>
         <select
           formControlName="category"
-          class="form-control" id="category">
+          class="form-control" id="category"
+          [(ngModel)]="product.category">
           <option *ngFor="let category of (categories$ | async)" [value]="category.key">
             {{category.name}}
           </option>
@@ -64,11 +65,11 @@
 
       <!--Image URL-->
       <div class="form-group">
-        <label for="imageURL">Image</label>
+        <label for="imageUrl">Image</label>
         <input
-          [value]= "'' || imageURL.value"
-          type="text" class="form-control" id="imageURL" formControlName="imageURL">
-        <div *ngIf="imageURL.touched && imageURL.invalid" class="alert alert-danger"> This field is required</div>
+          [(ngModel)]="product.imageUrl"
+          type="text" class="form-control" id="imageUrl" formControlName="imageUrl">
+        <div *ngIf="imageUrl.touched && imageUrl.invalid" class="alert alert-danger"> This field is required</div>
       </div>
 
       <div *ngIf="isSubmit && productForm.invalid" class="alert alert-danger">Please ensure all fields are fill out</div>
@@ -81,13 +82,9 @@
 
   <!--Preview Image-->
   <div class="col-md-6">
-    <div class="card" *ngIf="title.value" style="width: 18rem;">
-      <img class="card-img-top" [src]="imageURL.value || (product && product.imageUrl)">
-      <div class="card-body">
-        <h5 class="card-title">{{title.value || (product && product.title)}}</h5>
-        <p class="card-text">{{ (price.value || (product && product.price)) | currency: 'USD': true}}</p>
-      </div>
-    </div>
+    <ng-container *ngIf="product.imageUrl">
+      <app-product-card [product]="product" [is-show-add-to-cart]="false"></app-product-card>
+    </ng-container>
   </div>
 
 </div>

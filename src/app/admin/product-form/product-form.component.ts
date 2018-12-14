@@ -20,7 +20,7 @@ export class ProductFormComponent implements OnInit {
   product$: Observable<any>;
   productForm: FormGroup;
   isSubmit = false;
-  product: Product;
+  product = {} as Product;
   productId: string;
 
   constructor(private categoryService: CategoryService,
@@ -73,8 +73,8 @@ export class ProductFormComponent implements OnInit {
   get category() {
     return this.productForm.get('category');
   }
-  get imageURL() {
-    return this.productForm.get('imageURL');
+  get imageUrl() {
+    return this.productForm.get('imageUrl');
   }
 
   ngOnInit() {
@@ -84,7 +84,7 @@ export class ProductFormComponent implements OnInit {
     if (this.productId !== 'new') {
       this.productService.getProduct(this.productId).subscribe( (product: Product) => {
         this.product = product;
-        this.fillTheProductForm(product);
+        // this.fillTheProductForm(product);
       });
     }
   }
@@ -94,15 +94,13 @@ export class ProductFormComponent implements OnInit {
     console.log('[ProductFormComponent][submitProductForm()] form product value:', product);
     this.isSubmit = true;
 
-    console.log('debug', this.productForm);
-
     if (this.productForm.valid) {
       this.isSubmit = false;
 
       if (this.productId === 'new') {
         this.productService.createProduct(product);
       } else {
-        // this.productService.updateProduct(this.productId, product);
+        this.productService.updateProduct(this.productId, product);
       }
 
       this.router.navigate(['admin/products']);
@@ -120,7 +118,7 @@ export class ProductFormComponent implements OnInit {
       category: ['', [
         Validators.required
       ]],
-      imageURL: ['', [
+      imageUrl: ['', [
         Validators.required
       ]]
     });
@@ -133,11 +131,11 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['admin/products']);
   }
 
-  fillTheProductForm(product: Product) {
+  /*fillTheProductForm(product: Product) {
     this.title.setValue(product.title);
     this.price.setValue(product.price);
-    this.imageURL.setValue(product.imageUrl);
+    this.imageUrl.setValue(product.imageUrl);
     this.category.setValue(product.category);
-  }
+  }*/
 
 }

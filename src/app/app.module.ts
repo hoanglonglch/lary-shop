@@ -30,11 +30,15 @@ import {CategoryService} from './service/category.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ProductService} from './service/product.service';
 import {DataTableModule} from 'angular-6-datatable';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './product-card/product-card.component';
+import {CartService} from './service/cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: ProductsComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'login', component: LoginComponent },
@@ -85,7 +89,10 @@ const appRoutes: Routes = [
     AdminOrdersComponent,
     LoginComponent,
     NotFoundComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent,
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +115,8 @@ const appRoutes: Routes = [
     AuthService,
     UserService,
     CategoryService,
-    ProductService
+    ProductService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

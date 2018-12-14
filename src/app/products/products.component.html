@@ -1,3 +1,26 @@
-<p>
-  products works!
-</p>
+<div class="row">
+
+  <!--Categories-->
+  <div class="col-3">
+    <div class="sticky-top">
+      <app-product-filter [categoryQueryParam]="categoryQueryParam"></app-product-filter>
+    </div>
+  </div>
+
+  <!--Products-->
+  <div class="col">
+    <div class="row">
+      <ng-container *ngFor="let product of filteredProduct; let i = index">
+        <div class="col">
+          <app-product-card
+            [product]="product"
+            [shopping-cart]="shoppingCart"
+            [is-show-add-to-cart]="true"></app-product-card>
+        </div>
+        <div *ngIf="(i+1)%2 === 0" class="w-100"></div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
