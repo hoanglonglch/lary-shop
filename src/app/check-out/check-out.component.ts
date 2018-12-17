@@ -15,16 +15,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit {
-  shippingForm: FormGroup;
-  cart: ShoppingCart;
-  userId: string;
 
-  constructor(private fb: FormBuilder,
-              private router: Router,
-              private cartService: CartService,
-              private orderService: OrderService,
-              private authService: AuthService) {
-    this.shippingForm = this.initForm();
+  cart: ShoppingCart;
+
+  constructor(private cartService: CartService) {
   }
 
   async ngOnInit() {
@@ -32,34 +26,6 @@ export class CheckOutComponent implements OnInit {
     cart$.valueChanges().pipe(take(1)).subscribe((cart: ShoppingCart) => {
       this.cart = new ShoppingCart(cart.items);
     });
-
-    this.authService.user$.pipe(take(1)).subscribe(data => {
-      this.userId = data.uid;
-    });
   }
 
-
-  async placeOrder() {
-    if (this.shippingForm.valid) {
-      let order = new Order(this.userId, this.shippingForm.value, this.cart);
-
-      let orderFirebase = await this.orderService.storeOrder(order);
-      console.log('orderId', orderFirebase.key);
-      this.router.navigate(['order-success', orderFirebase.key]);
-    }
-  }
-
-  initForm() {
-    return this.fb.group({
-      name: ['', [
-        Validators.required
-      ]],
-      address: ['', [
-        Validators.required
-      ]],
-      city: ['', [
-        Validators.required
-      ]]
-    });
-  }
 }
