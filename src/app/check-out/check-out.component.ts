@@ -7,6 +7,7 @@ import {OrderService} from '../order.service';
 import {ShoppingCartItem} from '../../models/shopping-cart-item';
 import {AuthService} from '../service/auth.service';
 import {Order} from '../../models/order';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-check-out',
@@ -14,12 +15,12 @@ import {Order} from '../../models/order';
   styleUrls: ['./check-out.component.css']
 })
 export class CheckOutComponent implements OnInit {
-  shipping = {};
   shippingForm: FormGroup;
   cart: ShoppingCart;
   userId: string;
 
   constructor(private fb: FormBuilder,
+              private router: Router,
               private cartService: CartService,
               private orderService: OrderService,
               private authService: AuthService) {
@@ -39,10 +40,13 @@ export class CheckOutComponent implements OnInit {
   }
 
 
-  placeOrder() {
+  async placeOrder() {
     if (this.shippingForm.valid) {
       let order = new Order(this.userId, this.shippingForm.value, this.cart);
-      this.orderService.storeOrder(order);
+
+      let orderFirebase = await this.orderService.storeOrder(order);
+      console.log('orderId', orderFirebase.key);
+      this.router.navigate(['order-success', orderFirebase.key]);
     }
   }
 
