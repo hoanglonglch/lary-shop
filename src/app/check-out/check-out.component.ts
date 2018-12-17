@@ -6,6 +6,7 @@ import {take} from 'rxjs/operators';
 import {OrderService} from '../order.service';
 import {ShoppingCartItem} from '../../models/shopping-cart-item';
 import {AuthService} from '../service/auth.service';
+import {Order} from '../../models/order';
 
 @Component({
   selector: 'app-check-out',
@@ -40,26 +41,9 @@ export class CheckOutComponent implements OnInit {
 
   placeOrder() {
     if (this.shippingForm.valid) {
-      let order = {
-        userId: this.userId,
-        dateCreated: new Date().getTime(),
-        shipping: this.shippingForm.value,
-        items: this.cart.listItems.map((item: ShoppingCartItem) => {
-          return {
-            product: {
-              title: item.product.title,
-              imageUrl: item.product.imageUrl,
-              price: item.product.price
-            },
-            quantity: item.quantity,
-            totalPrice: item.totalPrice
-          };
-        })
-      };
-
+      let order = new Order(this.userId, this.shippingForm.value, this.cart);
       this.orderService.storeOrder(order);
     }
-
   }
 
   initForm() {
