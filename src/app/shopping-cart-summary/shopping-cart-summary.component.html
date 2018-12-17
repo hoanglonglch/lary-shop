@@ -1,0 +1,22 @@
+<div class="card" style="width: 100%">
+  <div class="card-body" *ngIf="cart">
+    <h5 class="card-title">Order Summary</h5>
+    <h6 class="card-subtitle mb-2 text-muted">You have {{cart.totalItemsCount}} items in your shopping cart</h6>
+
+    <table class="table table-hover">
+      <tbody>
+      <tr  *ngFor="let item of cart.listItems">
+        <td>{{item.product.title}}</td>
+        <td>{{item.product.price}}</td>
+      </tr>
+      </tbody>
+      <tfoot>
+        <tr class="font-weight-bold">
+          <td>Total</td>
+          <td>{{cart.totalPrice | currency:'USD'}}</td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>

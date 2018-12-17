@@ -30,7 +30,6 @@ export class CheckOutComponent implements OnInit {
   async ngOnInit() {
     let cart$ = await this.cartService.getCart();
     cart$.valueChanges().pipe(take(1)).subscribe((cart: ShoppingCart) => {
-      console.log('data', cart);
       this.cart = new ShoppingCart(cart.items);
     });
 
