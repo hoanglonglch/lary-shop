@@ -34,6 +34,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './product-card/product-card.component';
 import {CartService} from './service/cart.service';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
+import {OrderService} from './order.service';
 
 
 
@@ -116,7 +117,8 @@ const appRoutes: Routes = [
     UserService,
     CategoryService,
     ProductService,
-    CartService
+    CartService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })
